@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
         try {
             User duplicate = userRepository.getByEmail(user.getEmail());
             if (duplicate != null) {
-                throw new DuplicateDataException("There is user with this email");
+                throw new DuplicateDataException("There is user with this email!");
             }
 
             user.setStatus(Status.Unverified);
