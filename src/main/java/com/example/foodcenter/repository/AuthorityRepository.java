@@ -25,4 +25,8 @@ public interface AuthorityRepository extends JpaRepository<Authority,Integer> {
     void deleteManager(@Param("authID") int authorityId, @Param("userID") int userId);
 
 
+
+
+
+
 }
