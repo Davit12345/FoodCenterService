@@ -10,7 +10,7 @@ public interface AdminService {
 
     void addManager(String  email) throws InterruptedException, NotFoundException;
 
-    void deleteManager(String email);
+    void deleteManager(String email) throws InterruptedException, NotFoundException;
 
     void blockUser(User user);
 

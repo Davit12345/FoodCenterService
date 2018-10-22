@@ -16,5 +16,13 @@ public interface AuthorityRepository extends JpaRepository<Authority,Integer> {
 
     @Modifying
     @Query(nativeQuery = true,value = "INSERT INTO user_authority(authority_id,user_id) VALUES (:authID,:userID)" )
-    void addAuthority(@Param("authID") int authorityId, @Param("userID") int userId);
+    void addManager(@Param("authID") int authorityId, @Param("userID") int userId);
+
+
+
+    @Modifying
+    @Query(nativeQuery = true,value = "DELETE FROM user_authority WHERE user_id=:userID and authority_id=:authID" )
+    void deleteManager(@Param("authID") int authorityId, @Param("userID") int userId);
+
+
 }

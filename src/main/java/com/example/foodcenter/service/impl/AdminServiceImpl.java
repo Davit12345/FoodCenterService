@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService {
         }
 
             Authority authority = authorityRepository.getByName(Constants.MANAGER);
-                authorityRepository.addAuthority(authority.getId(),user.getId());
+                authorityRepository.addManager(authority.getId(),user.getId());
 
         } catch (RuntimeException e) {
             throw new InterruptedException(Constants.ERROR_MESSAGE);
@@ -44,8 +44,20 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void deleteManager(String email) {
+    @Transactional
+    public void deleteManager(String email) throws InterruptedException, NotFoundException {
+        try {
+            User user = userRepository.getByEmail(email);
+            if(user==null){
+                throw  new NotFoundException("There are not user whit this email!!!");
+            }
 
+            Authority authority = authorityRepository.getByName(Constants.MANAGER);
+            authorityRepository.deleteManager(authority.getId(),user.getId());
+
+        } catch (RuntimeException e) {
+            throw new InterruptedException(Constants.ERROR_MESSAGE);
+        }
     }
 
 
@@ -56,6 +68,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<User> getAllManager() {
+
         return null;
     }
 }

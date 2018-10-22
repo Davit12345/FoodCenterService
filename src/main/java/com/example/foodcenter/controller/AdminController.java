@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UrlConstants.Admin_CONTROLLER_URL)
@@ -28,4 +25,12 @@ public class AdminController {
         adminService.addManager(email);
         return  ResponseEntity.ok("success add Manager");
     }
+
+    @PostMapping
+    public  ResponseEntity deleteManage(@RequestParam String email) throws NotFoundException, InterruptedException {
+
+        adminService.deleteManager(email);
+        return  ResponseEntity.ok("success delete Manager");
+    }
+
 }
