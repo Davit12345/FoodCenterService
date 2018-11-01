@@ -28,20 +28,9 @@ public class UserController {
 
 
     @PutMapping
-    public ResponseEntity addUser(@Valid @RequestBody User user) {
+    public ResponseEntity addUser(@Valid @RequestBody User user) throws DuplicateDataException, InternalErrorException {
 
-        try {
-            System.out.println("hello");
-            userService.add(user);
-
-        } catch (DuplicateDataException e) {
-
-            return ResponseEntity.status(409).body(Collections.singletonMap("message", e.getMessage()));
-
-        } catch (InternalErrorException e) {
-            return ResponseEntity.status(500).body(e.getMessage());
-        }
-
+        userService.add(user);
         return ResponseEntity.ok().body(user);
 
     }
@@ -51,20 +40,14 @@ public class UserController {
 
 
     @PostMapping(UrlConstants.USERS_CONTROLLER_URL_VERIFY)
-    public ResponseEntity verifay(@RequestParam String email, @RequestParam String code) throws TeapotException {
+    public ResponseEntity verify(@RequestParam String email, @RequestParam String code) throws TeapotException, InternalErrorException {
 
-        try {
+
 
             userService.verify(email, code);
 
-        } catch (IllegalAccessError e) {
 
-            return ResponseEntity.status(409).body(Collections.singletonMap("message", e.getMessage()));
-        } catch (InternalErrorException e) {
-
-            return ResponseEntity.status(500).body(e.getMessage());
-        }
-        return ResponseEntity.ok().body("you have scssesful passed  the varification");
+        return ResponseEntity.ok().body("you  success passed  the verification");
     }
 
 
@@ -72,48 +55,37 @@ public class UserController {
 
 
 
-    @PostMapping(UrlConstants.USERS_CONTROLLER_SENDRECOVERINGCODE)
-    public ResponseEntity sendRecoveringCode(@RequestParam String email) {
+    @PostMapping(UrlConstants.USERS_CONTROLLER_SEND_RECOVERING_CODE)
+    public ResponseEntity sendRecoveringCode(@RequestParam String email) throws InternalErrorException {
 
-        try {
 
             userService.sendRecoveringCode(email);
             return ResponseEntity.ok().body("See Your Recovering Code in your  Email");
 
 
-        } catch (IllegalAccessError e) {
-            return ResponseEntity.status(409).body(Collections.singletonMap("message", e.getMessage()));
 
-        } catch (InternalErrorException e) {
-            return ResponseEntity.status(500).body(e.getMessage());
-        }
     }
 
 
 
 
 
-    @PostMapping(UrlConstants.USERS_CONTROLLER_CHANGPASSWORD)
-    public ResponseEntity CahngePassword(@RequestParam String email, @RequestParam String password, @RequestParam String code) {
+    @PostMapping(UrlConstants.USERS_CONTROLLER_CHANGE_PASSWORD)
+    public ResponseEntity CahngePassword(@RequestParam String email, @RequestParam String password, @RequestParam String code) throws InternalErrorException {
 
-        try {
+
 
             userService.changePassword(email, password, code);
-            return ResponseEntity.ok().body("you have scssesful cahne the password");
+            return ResponseEntity.ok().body("you  successful chane your password");
 
 
-        } catch (IllegalAccessError e) {
-            return ResponseEntity.status(409).body(Collections.singletonMap("message", e.getMessage()));
 
-        } catch (InternalErrorException e) {
-            return ResponseEntity.status(500).body(e.getMessage());
-        }
     }
 
 
 
 
-    @PostMapping(UrlConstants.USERS_CONTROLLER_RESENDRECOVERINGCOD)
+    @PostMapping(UrlConstants.USERS_CONTROLLER_RESEND_RECOVERING_CODE)
     public ResponseEntity resendVerificationCode(@RequestParam String email) throws NotFoundException, InternalErrorException {
         userService.resendVerificationCode(email);
         return ResponseEntity.ok().build();

@@ -14,16 +14,17 @@ public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int id;
+    private int id;
 
     @NotNull
-    private  String name;
+    @Column(unique = true)
+    private String name;
 
     @NotNull
-    private  int price;
+    private int price;
 
 
-    private  String info;
+    private String info;
 
     @Enumerated(EnumType.ORDINAL)
     private MenuItems menuItem;

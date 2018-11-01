@@ -2,6 +2,6 @@ package com.example.foodcenter.model.enums;
 
 public enum  MenuItems {
 
-    dish,drinks,salad,sweets,deserts,other;
+    Dish,Drinks,Salad,Sweets,Deserts,Other;
 
 }

@@ -11,5 +11,9 @@ public interface MenuRepository  extends JpaRepository<Menu,Integer> {
 
     List<Menu> getByMenuItem(String item);
 
+    Menu   getByName(String mame);
+
+
+
 
 }

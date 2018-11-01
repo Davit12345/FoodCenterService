@@ -1,6 +1,7 @@
 package com.example.foodcenter.controller;
 
 import com.example.foodcenter.exceptions.AccessDeniedException;
+import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.exceptions.NotFoundException;
 import com.example.foodcenter.model.User;
 import com.example.foodcenter.model.enums.Status;
@@ -30,7 +31,7 @@ public class AdminController {
 
 
     @PutMapping
-    public ResponseEntity addManager(@RequestParam String email) throws NotFoundException, InterruptedException {
+    public ResponseEntity addManager(@RequestParam String email) throws NotFoundException, InterruptedException, InternalErrorException {
 
         adminService.addManager(email);
         return ResponseEntity.ok("success add Manager");
@@ -38,7 +39,7 @@ public class AdminController {
 
 
     @DeleteMapping
-    public ResponseEntity deleteManage(@RequestParam String email) throws NotFoundException, InterruptedException {
+    public ResponseEntity deleteManage(@RequestParam String email) throws NotFoundException, InternalErrorException, InterruptedException {
 
         adminService.deleteManager(email);
         return ResponseEntity.ok("success delete Manager");
@@ -47,7 +48,7 @@ public class AdminController {
 
 
     @PostMapping
-    public ResponseEntity BlockONorOff(@RequestParam String email) throws InterruptedException, AccessDeniedException, NotFoundException {
+    public ResponseEntity BlockONorOff(@RequestParam String email) throws InterruptedException, AccessDeniedException, NotFoundException, InternalErrorException {
 
 
 

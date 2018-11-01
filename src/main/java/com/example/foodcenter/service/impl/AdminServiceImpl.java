@@ -2,6 +2,7 @@ package com.example.foodcenter.service.impl;
 
 
 import com.example.foodcenter.exceptions.AccessDeniedException;
+import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.exceptions.NotFoundException;
 import com.example.foodcenter.model.Authority;
 import com.example.foodcenter.model.User;
@@ -32,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
-    public void addManager(String email) throws InterruptedException, NotFoundException {
+    public void addManager(String email) throws  NotFoundException, InternalErrorException {
         try {
             User user = userRepository.getByEmail(email);
             if (user == null) {
@@ -43,14 +44,15 @@ public class AdminServiceImpl implements AdminService {
             authorityRepository.addManager(authority.getId(), user.getId());
 
         } catch (RuntimeException e) {
-            throw new InterruptedException(Constants.ERROR_MESSAGE);
+            throw new InternalErrorException(Constants.ERROR_MESSAGE);
         }
     }
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
-    public void deleteManager(String email) throws InterruptedException, NotFoundException {
+    public void deleteManager(String email) throws  NotFoundException, InternalErrorException {
         try {
+
             User user = userRepository.getByEmail(email);
             if (user == null) {
                 throw new NotFoundException("There are not user whit this email!!!");
@@ -60,14 +62,14 @@ public class AdminServiceImpl implements AdminService {
             authorityRepository.deleteManager(authority.getId(), user.getId());
 
         } catch (RuntimeException e) {
-            throw new InterruptedException(Constants.ERROR_MESSAGE);
+            throw new InternalErrorException(Constants.ERROR_MESSAGE);
         }
     }
 
 
     @Override
     @Transactional
-    public void blockUser(String email) throws NotFoundException, InterruptedException, AccessDeniedException {
+    public void blockUser(String email) throws NotFoundException, AccessDeniedException, InternalErrorException {
         try {
             User user = userRepository.getByEmail(email);
             if (user == null) {
@@ -87,19 +89,19 @@ public class AdminServiceImpl implements AdminService {
             }
 
         } catch (RuntimeException e) {
-            throw new InterruptedException(Constants.ERROR_MESSAGE);
+            throw new InternalErrorException(Constants.ERROR_MESSAGE);
         }
     }
 
     @Override
-    public List<User> getAllManager() throws InterruptedException {
+    public List<User> getAllManager() throws  InternalErrorException {
         try {
 
 
             return userRepository.getAllManager();
 
         } catch (RuntimeException e) {
-            throw new InterruptedException(Constants.ERROR_MESSAGE);
+            throw new InternalErrorException(Constants.ERROR_MESSAGE);
         }
     }
 }

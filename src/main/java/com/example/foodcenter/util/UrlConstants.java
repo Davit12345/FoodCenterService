@@ -5,8 +5,13 @@ public interface UrlConstants {
 
     String USERS_CONTROLLER_URL = "/users";
     String USERS_CONTROLLER_URL_VERIFY = "/verify";
-    String USERS_CONTROLLER_SENDRECOVERINGCODE = "sendRecoveringCode";
-    String USERS_CONTROLLER_CHANGPASSWORD = "change";
-    String USERS_CONTROLLER_RESENDRECOVERINGCOD = "resendRecoveringCode";
+    String USERS_CONTROLLER_SEND_RECOVERING_CODE = "sendRecoveringCode";
+    String USERS_CONTROLLER_CHANGE_PASSWORD = "change";
+    String USERS_CONTROLLER_RESEND_RECOVERING_CODE = "resendRecoveringCode";
     String Admin_CONTROLLER_URL = "admin";
+
+    String MENU_CONTROLLER_URL = "menu";
+
+
+
 }
