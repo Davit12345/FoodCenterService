@@ -12,6 +12,6 @@ public interface UrlConstants {
 
     String MENU_CONTROLLER_URL = "menu";
 
-
+    String   CHOOSE_ORDER_CONTROLLER_URL= "choose";
 
 }

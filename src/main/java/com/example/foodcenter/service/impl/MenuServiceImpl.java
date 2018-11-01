@@ -20,8 +20,8 @@ public class MenuServiceImpl implements MenuService {
 
 
 
-    @Transactional
     @Override
+    @Transactional
     public void addMenu(Menu menu) throws InternalErrorException, DuplicateDataException {
         try{
             Menu duplicate = menuRepository.getByName(menu.getName());
@@ -41,7 +41,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Menu getMenuByName() {
-        return null;
+    public Menu getMenuByName(String name) {
+        return menuRepository.getByName(name);
     }
 }

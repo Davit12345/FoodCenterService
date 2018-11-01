@@ -9,7 +9,7 @@ public interface MenuService {
 
     void deleteMenu(String name);
 
-    Menu getMenuByName();
+    Menu getMenuByName(String name);
 
 
 

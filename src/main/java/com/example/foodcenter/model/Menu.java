@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -21,6 +22,7 @@ public class Menu {
     private String name;
 
     @NotNull
+    @Min(value = 0, message = "The product price must not be less than Zero!")
     private int price;
 
 
