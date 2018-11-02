@@ -5,6 +5,7 @@ import com.example.foodcenter.model.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -16,13 +17,14 @@ import java.util.Set;
 @Entity
 @Data
 @EqualsAndHashCode
-
+@ToString
 public class User {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
 
 
     @NotNull
@@ -38,6 +40,11 @@ public class User {
     @NotNull
     @Column(unique = true)
     private String email;
+
+
+    @NotNull
+    @Column(unique = true)
+    private String phoneNumber;
 
     @NotNull
     @Size(min = 8,message = "Password must be more then 8 characters")

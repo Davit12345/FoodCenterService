@@ -84,6 +84,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional
     public void sendRecoveringCode(String email) throws InternalErrorException {
 
         try {
@@ -150,7 +151,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Transactional(readOnly = true)
     @Override
     public User getByEmail(String email) {
 

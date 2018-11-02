@@ -71,7 +71,7 @@ public class UserController {
 
 
     @PostMapping(UrlConstants.USERS_CONTROLLER_CHANGE_PASSWORD)
-    public ResponseEntity CahngePassword(@RequestParam String email, @RequestParam String password, @RequestParam String code) throws InternalErrorException {
+    public ResponseEntity ChangePassword(@RequestParam String email, @RequestParam String password, @RequestParam String code) throws InternalErrorException {
 
 
 

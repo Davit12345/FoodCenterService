@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem,Integer> {
 
-    OrderItem getByUserAndAndMenu(User user, Menu menu);
+    OrderItem getByUserAndMenu(User user, Menu menu);
 }

@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(UrlConstants.MENU_CONTROLLER_URL)
@@ -31,5 +32,24 @@ public class MenuController {
 
     }
 
+    @GetMapping
+    public ResponseEntity getMenu() throws InternalErrorException {
+
+         List<Menu> menuList=menuService.getAllMenu();
+
+        return ResponseEntity.ok().body(menuList);
+
+    }
+
+    @GetMapping("/{Item}")
+    public ResponseEntity getMenuByItem(@PathVariable(value = "Item") String item ) throws InternalErrorException {
+
+
+
+        List<Menu> menuList=menuService.getByMenuItem(item);
+
+        return ResponseEntity.ok().body(menuList);
+
+    }
 
 }

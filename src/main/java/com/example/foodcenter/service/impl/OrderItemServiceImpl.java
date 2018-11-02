@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.beans.Transient;
+
 import java.util.List;
 
 @Service
@@ -29,31 +29,26 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Autowired
     private MenuService menuService;
 
+
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional
     public void addOrderItem(String email, String name, int quantity) throws InternalErrorException {
 
         try {
             User user = userService.getByEmail(email);
             Menu menu = menuService.getMenuByName(name);
 
-            if (orderItemRepository.getByUserAndAndMenu(user, menu) != null) {
+            OrderItem orderItem = new OrderItem();
 
-                OrderItem orderItem = orderItemRepository.getByUserAndAndMenu(user, menu);
-                orderItem.setQuantity(orderItem.getQuantity() + quantity);
+            orderItem.setQuantity(quantity);
+            orderItem.setMenu(menu);
+            orderItem.setUser(user);
 
-            } else {
-                OrderItem orderItem = new OrderItem();
-                orderItem.setQuantity(quantity);
-                orderItem.setUser(user);
-                orderItem.setMenu(menu);
+            orderItemRepository.save(orderItem);
 
-                orderItemRepository.save(orderItem);
-            }
         } catch (RuntimeException e) {
             throw new InternalErrorException(Constants.ERROR_MESSAGE);
         }
-
     }
 
     @Override

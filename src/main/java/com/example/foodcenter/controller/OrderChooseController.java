@@ -28,7 +28,8 @@ public class OrderChooseController {
 
         orderItemService.addOrderItem(principal.getName(),name,quantity);
 
-        return ResponseEntity.ok("success add  product in your list");
+        return ResponseEntity.ok("success added  product in your list");
 
     }
+
 }

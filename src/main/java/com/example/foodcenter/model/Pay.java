@@ -1,28 +1,29 @@
 package com.example.foodcenter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.ToString;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Data
-@ToString
-public class OrderItem {
+public class Pay {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
 
-    private int quantity;
-
     @ManyToOne
-    @JoinColumn(name = "costumerId")
-    private User user;
+    @JoinColumn(name = "customerId")
+    @JsonIgnore
+    private  User user;
 
-    @ManyToOne
-    @JoinColumn(name = "productId")
-    private Menu menu;
+    @Size(min=0)
+   private double owed;
+
 
 }
