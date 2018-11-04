@@ -4,9 +4,11 @@ import com.example.foodcenter.exceptions.BadRequestException;
 import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.model.Orders;
 import com.example.foodcenter.model.OrderItem;
+import com.example.foodcenter.model.Pay;
 import com.example.foodcenter.model.User;
 import com.example.foodcenter.repository.OrderItemRepository;
 import com.example.foodcenter.repository.OrderRepository;
+import com.example.foodcenter.repository.PayRepository;
 import com.example.foodcenter.repository.UserRepository;
 import com.example.foodcenter.service.MenuService;
 import com.example.foodcenter.service.OrderService;
@@ -33,10 +35,10 @@ public class OrderServiceImpl implements OrderService {
     private UserRepository userRepository;
 
     @Autowired
-    private MenuService menuService;
+    private PayRepository payRepository;
 
     @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE,propagation = Propagation.REQUIRED)
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void addOrder(String email) throws InternalErrorException, BadRequestException {
         try {
             // add in db ->Orders
@@ -45,17 +47,38 @@ public class OrderServiceImpl implements OrderService {
 
             List<OrderItem> orderItemList = orderItemRepository.getByUser(user);
 
-            if(orderItemList==null){
-                throw  new BadRequestException("Pleas choose any  product ");
+            if (orderItemList == null) {
+                throw new BadRequestException("Pleas choose any  product ");
             }
+
             for (OrderItem orderItem : orderItemList) {
+                double sum = 0;
 
                 Orders order = new Orders();
                 order.setMenu(orderItem.getMenu());
                 order.setQuantity(orderItem.getQuantity());
                 order.setUser(orderItem.getUser());
-                order.setTotalPrice(orderItem.getQuantity() * orderItem.getMenu().getPrice());
 
+                sum = orderItem.getQuantity() * orderItem.getMenu().getPrice();
+                order.setTotalPrice(sum);
+
+
+                if (payRepository.getByUser(user) == null) {
+
+                    Pay pay = new Pay();
+
+                    pay.setUser(user);
+                    pay.setOwed(sum);
+
+                    payRepository.save(pay);
+
+
+                } else {
+                    Pay pay = payRepository.getByUser(user);
+                    pay.setOwed(pay.getOwed() + sum);
+                    payRepository.save(pay);
+
+                }
 
                 orderRepository.save(order);
             }

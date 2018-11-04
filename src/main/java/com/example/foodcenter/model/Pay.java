@@ -22,7 +22,7 @@ public class Pay {
     @JsonIgnore
     private  User user;
 
-    @Size(min=0)
+
    private double owed;
 
 

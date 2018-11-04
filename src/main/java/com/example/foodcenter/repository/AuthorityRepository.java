@@ -28,5 +28,4 @@ public interface AuthorityRepository extends JpaRepository<Authority,Integer> {
 
 
 
-
 }
