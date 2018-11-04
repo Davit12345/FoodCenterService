@@ -1,6 +1,7 @@
 package com.example.foodcenter.controller;
 
 
+import com.example.foodcenter.exceptions.BadRequestException;
 import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class BuyProductController {
 
 
     @GetMapping
-    public ResponseEntity addProduct(Principal principal) throws InternalErrorException {
+    public ResponseEntity addProduct(Principal principal) throws InternalErrorException, BadRequestException {
 
         orderService.addOrder(principal.getName());
 

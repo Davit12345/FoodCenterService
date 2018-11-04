@@ -1,5 +1,6 @@
-package com.example.foodcenter.model;
+package com.example.foodcenter.controller.forJsonModels;
 
+import com.example.foodcenter.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,33 +10,15 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-@Entity
 @Data
-public class Cart {
+public class CartInfo {
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-
-    @ManyToOne
-    @JoinColumn(name = "customerId")
-    @JsonIgnore
-    private User user;
-
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
 
     @NotNull
-    @Column(unique = true)
     String cartCode;
 
     @NotNull
     @Size(min = 8,message = "Password must be more then 8 characters")
     String cartPassword;
-
-    private double amount;
 
 }

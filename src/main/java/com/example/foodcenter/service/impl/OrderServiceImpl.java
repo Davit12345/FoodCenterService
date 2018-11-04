@@ -1,5 +1,6 @@
 package com.example.foodcenter.service.impl;
 
+import com.example.foodcenter.exceptions.BadRequestException;
 import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.model.Orders;
 import com.example.foodcenter.model.OrderItem;
@@ -10,6 +11,7 @@ import com.example.foodcenter.repository.UserRepository;
 import com.example.foodcenter.service.MenuService;
 import com.example.foodcenter.service.OrderService;
 import com.example.foodcenter.util.Constants;
+import org.hibernate.criterion.NotNullExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -35,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE,propagation = Propagation.REQUIRED)
-    public void addOrder(String email) throws InternalErrorException {
+    public void addOrder(String email) throws InternalErrorException, BadRequestException {
         try {
             // add in db ->Orders
 
@@ -43,6 +45,9 @@ public class OrderServiceImpl implements OrderService {
 
             List<OrderItem> orderItemList = orderItemRepository.getByUser(user);
 
+            if(orderItemList==null){
+                throw  new BadRequestException("Pleas choose any  product ");
+            }
             for (OrderItem orderItem : orderItemList) {
 
                 Orders order = new Orders();
