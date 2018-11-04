@@ -4,7 +4,6 @@ package com.example.foodcenter.service;
 import com.example.foodcenter.exceptions.AccessDeniedException;
 import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.exceptions.NotFoundException;
-import com.example.foodcenter.model.Menu;
 import com.example.foodcenter.model.User;
 
 import java.util.List;

@@ -1,6 +1,7 @@
 package com.example.foodcenter.service.impl;
 
 import com.example.foodcenter.exceptions.InternalErrorException;
+import com.example.foodcenter.exceptions.TeapotException;
 import com.example.foodcenter.model.Menu;
 import com.example.foodcenter.model.OrderItem;
 import com.example.foodcenter.model.User;
@@ -32,19 +33,30 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     @Transactional
-    public void addOrderItem(String email, String name, int quantity) throws InternalErrorException {
+    public void addOrderItem(String email, String name, int quantity) throws InternalErrorException, TeapotException {
 
         try {
             User user = userService.getByEmail(email);
             Menu menu = menuService.getMenuByName(name);
+            if(menu==null||user==null){
+                throw  new TeapotException("Please don't kill me");
+            }
 
-            OrderItem orderItem = new OrderItem();
+            if (orderItemRepository.getByUserAndMenu(user, menu) != null) {
 
-            orderItem.setQuantity(quantity);
-            orderItem.setMenu(menu);
-            orderItem.setUser(user);
+                OrderItem orderItem = orderItemRepository.getByUserAndMenu(user, menu);
+                orderItem.setQuantity(orderItem.getQuantity() + quantity);
+                orderItemRepository.save(orderItem);
+            } else {
 
-            orderItemRepository.save(orderItem);
+                OrderItem orderItem = new OrderItem();
+
+                orderItem.setQuantity(quantity);
+                orderItem.setMenu(menu);
+                orderItem.setUser(user);
+                orderItemRepository.save(orderItem);
+            }
+
 
         } catch (RuntimeException e) {
             throw new InternalErrorException(Constants.ERROR_MESSAGE);
@@ -52,8 +64,16 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public List<OrderItem> getAllItemOneCostumer(User user) {
-        return null;
+    @Transactional(readOnly = true)
+    public List<OrderItem> getAllItemOneCostumer(String email) throws InternalErrorException {
+        try{
+
+        return orderItemRepository.getByUser(userService.getByEmail(email));
+
+
+        } catch (RuntimeException e) {
+            throw new InternalErrorException(Constants.ERROR_MESSAGE);
+        }
     }
 
     @Override
