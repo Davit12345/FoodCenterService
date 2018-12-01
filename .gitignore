@@ -26,3 +26,4 @@
 /target
 /out
 foodcenter.iml
+/src/main/resources/static/
