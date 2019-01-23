@@ -1,6 +1,7 @@
 package com.example.foodcenter.service;
 
 
+import com.example.foodcenter.controller.forJsonModels.EmailAndCode;
 import com.example.foodcenter.exceptions.DuplicateDataException;
 import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.exceptions.NotFoundException;
@@ -12,7 +13,7 @@ public interface UserService {
 
     void add(User user) throws DuplicateDataException, InternalErrorException;
 
-    void verify(String email, String verificationCode) throws InternalErrorException, TeapotException;
+    void verify(EmailAndCode emailAndCode) throws InternalErrorException, TeapotException;
 
     void sendRecoveringCode(String email) throws InternalErrorException;
 

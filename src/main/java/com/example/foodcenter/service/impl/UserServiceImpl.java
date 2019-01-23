@@ -1,5 +1,6 @@
 package com.example.foodcenter.service.impl;
 
+import com.example.foodcenter.controller.forJsonModels.EmailAndCode;
 import com.example.foodcenter.model.Authority;
 import com.example.foodcenter.model.User;
 import com.example.foodcenter.model.enums.Status;
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
             user.setAuthorities(Collections.singleton(authority));
 
-            mailClient.send(user.getEmail(), Constants.EMAIL_SUBJECTS_VERIFICATION, Util.getVerificationMessage(user.getName(), user.getCode()));
+//            mailClient.send(user.getEmail(), Constants.EMAIL_SUBJECTS_VERIFICATION, Util.getVerificationMessage(user.getName(), user.getCode()));
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
             throw new InternalErrorException(Constants.ERROR_MESSAGE);
@@ -63,13 +64,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void verify(String email, String verificationCode) throws InternalErrorException, TeapotException {
+    public void verify(EmailAndCode emailAndCode) throws InternalErrorException, TeapotException {
         try {
-            User user = userRepository.getByEmail(email);
+            User user = userRepository.getByEmail(emailAndCode.getEmail());
             if (user.getStatus().equals(Status.Active)) {
                 throw new TeapotException("USer is already verified, Why do you want to verify him?");
             }
-            if (verificationCode.equals(user.getCode())) {
+            if (emailAndCode.getCode().equals(user.getCode())) {
                 user.setCode(null);
                 user.setStatus(Status.Active);
                 userRepository.save(user);

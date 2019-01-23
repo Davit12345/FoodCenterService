@@ -1,6 +1,7 @@
 package com.example.foodcenter.controller;
 
 
+import com.example.foodcenter.controller.forJsonModels.Item;
 import com.example.foodcenter.exceptions.DuplicateDataException;
 import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.exceptions.TeapotException;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(UrlConstants.CHOOSE_ORDER_CONTROLLER_URL)
+@CrossOrigin
 public class OrderChooseController {
 
     @Autowired
@@ -26,10 +28,10 @@ public class OrderChooseController {
 
 
     @PostMapping
-    public ResponseEntity addProduct(Principal principal, @RequestParam String name,@RequestParam int quantity ) throws InternalErrorException, TeapotException {
+    public ResponseEntity addProduct(Principal principal, @Valid @RequestBody Item item) throws InternalErrorException, TeapotException {
 
-
-        orderItemService.addOrderItem(principal.getName(),name,quantity);
+        System.out.println(item.getName() + "" + item.getQuantity());
+        orderItemService.addOrderItem(principal.getName(), item);
 
         return ResponseEntity.ok("success added  product in your list");
 
@@ -37,13 +39,11 @@ public class OrderChooseController {
 
 
     @GetMapping
-    public  ResponseEntity getUserChoose(Principal principal) throws InternalErrorException {
+    public ResponseEntity getUserChoose(Principal principal) throws InternalErrorException {
 
-        List<OrderItem> orderItemList= orderItemService.getAllItemOneCostumer(principal.getName());
+        List<OrderItem> orderItemList = orderItemService.getAllItemOneCostumer(principal.getName());
         return ResponseEntity.ok().body(orderItemList);
     }
-
-
 
 
 }

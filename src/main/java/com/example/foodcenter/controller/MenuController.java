@@ -16,15 +16,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping(UrlConstants.MENU_CONTROLLER_URL)
+@CrossOrigin
 public class MenuController {
 
     @Autowired
     private MenuService menuService;
 
 
-    @PutMapping
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity addManager(@Valid @RequestBody Menu menu) throws InternalErrorException, DuplicateDataException {
+    @PostMapping
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity addMenu(@Valid @RequestBody Menu menu) throws InternalErrorException, DuplicateDataException {
 
         menuService.addMenu(menu);
 
@@ -32,7 +33,7 @@ public class MenuController {
 
     }
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity getMenu() throws InternalErrorException {
 
          List<Menu> menuList=menuService.getAllMenu();

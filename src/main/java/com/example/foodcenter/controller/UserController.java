@@ -1,6 +1,7 @@
 package com.example.foodcenter.controller;
 
 
+import com.example.foodcenter.controller.forJsonModels.EmailAndCode;
 import com.example.foodcenter.exceptions.DuplicateDataException;
 import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.exceptions.NotFoundException;
@@ -17,6 +18,8 @@ import java.util.Collections;
 
 @RestController
 @RequestMapping(UrlConstants.USERS_CONTROLLER_URL)
+@CrossOrigin
+
 public class UserController {
 
 
@@ -42,10 +45,10 @@ public class UserController {
 
 
     @PostMapping(UrlConstants.USERS_CONTROLLER_URL_VERIFY)
-    public ResponseEntity verify(@RequestParam String email, @RequestParam String code) throws TeapotException, InternalErrorException {
+    public ResponseEntity verify(@Valid @RequestBody EmailAndCode emailAndCode) throws TeapotException, InternalErrorException {
 
 
-        userService.verify(email, code);
+        userService.verify(emailAndCode);
 
 
         return ResponseEntity.ok().body("you  success passed  the verification");

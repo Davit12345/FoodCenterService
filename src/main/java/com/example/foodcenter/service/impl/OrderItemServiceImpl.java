@@ -1,5 +1,6 @@
 package com.example.foodcenter.service.impl;
 
+import com.example.foodcenter.controller.forJsonModels.Item;
 import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.exceptions.TeapotException;
 import com.example.foodcenter.model.Menu;
@@ -33,11 +34,11 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     @Transactional
-    public void addOrderItem(String email, String name, int quantity) throws InternalErrorException, TeapotException {
+    public void addOrderItem(String email, Item item) throws InternalErrorException, TeapotException {
 
         try {
             User user = userService.getByEmail(email);
-            Menu menu = menuService.getMenuByName(name);
+            Menu menu = menuService.getMenuByName(item.getName());
             if(menu==null||user==null){
                 throw  new TeapotException("Please don't kill me");
             }
@@ -45,13 +46,13 @@ public class OrderItemServiceImpl implements OrderItemService {
             if (orderItemRepository.getByUserAndMenu(user, menu) != null) {
 
                 OrderItem orderItem = orderItemRepository.getByUserAndMenu(user, menu);
-                orderItem.setQuantity(orderItem.getQuantity() + quantity);
+                orderItem.setQuantity(orderItem.getQuantity() + item.getQuantity());
                 orderItemRepository.save(orderItem);
             } else {
 
                 OrderItem orderItem = new OrderItem();
 
-                orderItem.setQuantity(quantity);
+                orderItem.setQuantity(item.getQuantity());
                 orderItem.setMenu(menu);
                 orderItem.setUser(user);
                 orderItemRepository.save(orderItem);
