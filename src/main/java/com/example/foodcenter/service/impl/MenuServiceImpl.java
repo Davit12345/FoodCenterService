@@ -37,8 +37,16 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
+    @Transactional
     @Override
-    public void deleteMenu(String name) {
+    public void deleteMenu(int id) throws InternalErrorException {
+        try {
+
+            menuRepository.delete(id);
+
+        } catch (RuntimeException e) {
+            throw new InternalErrorException(Constants.ERROR_MESSAGE);
+        }
 
     }
 
@@ -50,10 +58,15 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public Menu getMenuById(int id) {
+        return menuRepository.getById(id);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Menu> getByMenuItem(String item) throws InternalErrorException {
         try {
-        MenuItems menuItems=MenuItems.valueOf(item);
+            MenuItems menuItems = MenuItems.valueOf(item);
 
             return menuRepository.getByMenuItem(menuItems);
 

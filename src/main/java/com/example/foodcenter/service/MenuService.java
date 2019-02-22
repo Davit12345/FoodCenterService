@@ -10,12 +10,15 @@ import java.util.List;
 public interface MenuService {
     void addMenu(Menu menu) throws InternalErrorException, DuplicateDataException;
 
-    void deleteMenu(String name);
+    void deleteMenu(int id) throws InternalErrorException;
 
     Menu getMenuByName(String name);
+
+    Menu getMenuById(int id);
 
     List<Menu> getByMenuItem(String item) throws InternalErrorException;
 
     List<Menu> getAllMenu() throws InternalErrorException;
+
 
 }

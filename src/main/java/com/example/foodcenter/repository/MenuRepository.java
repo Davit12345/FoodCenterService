@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MenuRepository  extends JpaRepository<Menu,Integer> {
+public interface MenuRepository extends JpaRepository<Menu, Integer> {
 
     List<Menu> getByMenuItem(MenuItems item);
 
-    Menu   getByName(String mame);
+    Menu getByName(String mame);
 
-
+    Menu getById(int id);
 
 
 }

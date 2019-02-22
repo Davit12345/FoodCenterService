@@ -2,6 +2,7 @@ package com.example.foodcenter.service.impl;
 
 import com.example.foodcenter.controller.forJsonModels.Item;
 import com.example.foodcenter.exceptions.InternalErrorException;
+import com.example.foodcenter.exceptions.NotFoundException;
 import com.example.foodcenter.exceptions.TeapotException;
 import com.example.foodcenter.model.Menu;
 import com.example.foodcenter.model.OrderItem;
@@ -39,8 +40,8 @@ public class OrderItemServiceImpl implements OrderItemService {
         try {
             User user = userService.getByEmail(email);
             Menu menu = menuService.getMenuByName(item.getName());
-            if(menu==null||user==null){
-                throw  new TeapotException("Please don't kill me");
+            if (menu == null || user == null) {
+                throw new TeapotException("Please don't kill me");
             }
 
             if (orderItemRepository.getByUserAndMenu(user, menu) != null) {
@@ -67,9 +68,9 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderItem> getAllItemOneCostumer(String email) throws InternalErrorException {
-        try{
+        try {
 
-        return orderItemRepository.getByUser(userService.getByEmail(email));
+            return orderItemRepository.getByUser(userService.getByEmail(email));
 
 
         } catch (RuntimeException e) {
@@ -77,13 +78,27 @@ public class OrderItemServiceImpl implements OrderItemService {
         }
     }
 
+
     @Override
-    public void deleteOneProduct(User user, String name, OrderItem orderItem) {
+    public void updateOneProduct(User user, String name, OrderItem orderItem) {
 
     }
 
     @Override
-    public void updateOneProduct(User user, String name, OrderItem orderItem) {
+    @Transactional
+    public void deleteOneProduct(int id, String email) throws InternalErrorException, NotFoundException {
+        try {
+
+            User user = userService.getByEmail(email);
+            if(user==null){
+                throw new NotFoundException("not user this email");
+            }
+            orderItemRepository.deleteByIdAndAndUser(id, user);
+
+        }catch (RuntimeException e) {
+
+            throw new InternalErrorException(Constants.ERROR_MESSAGE);
+        }
 
     }
 }

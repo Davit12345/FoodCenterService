@@ -3,6 +3,7 @@ package com.example.foodcenter.service;
 
 import com.example.foodcenter.controller.forJsonModels.Item;
 import com.example.foodcenter.exceptions.InternalErrorException;
+import com.example.foodcenter.exceptions.NotFoundException;
 import com.example.foodcenter.exceptions.TeapotException;
 import com.example.foodcenter.model.OrderItem;
 import com.example.foodcenter.model.User;
@@ -15,7 +16,8 @@ public interface OrderItemService  {
 
     List<OrderItem> getAllItemOneCostumer(String email) throws InternalErrorException;
 
-    void deleteOneProduct(User user,String name,OrderItem orderItem);
+
     void updateOneProduct(User user,String name,OrderItem orderItem);
 
+    void deleteOneProduct(int id, String name) throws InternalErrorException, NotFoundException;
 }

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -59,7 +60,6 @@ public class UserServiceImpl implements UserService {
 
 
     }
-
 
 
     @Override
@@ -146,6 +146,18 @@ public class UserServiceImpl implements UserService {
             }
             user.setCode(Util.generateRandomChars());
             mailClient.send(user.getEmail(), Constants.EMAIL_SUBJECTS_VERIFICATION, Util.getVerificationMessage(user.getName(), user.getCode()));
+        } catch (RuntimeException e) {
+            throw new InternalErrorException("Something went wrong, please try later");
+        }
+    }
+
+    @Transactional
+    @Override
+    public List<Authority> getRoles(String email) throws InternalErrorException {
+        try {
+            User user = userRepository.getByEmail(email);
+            List<Authority> roles = authorityRepository.getRoles(email);
+            return roles;
         } catch (RuntimeException e) {
             throw new InternalErrorException("Something went wrong, please try later");
         }

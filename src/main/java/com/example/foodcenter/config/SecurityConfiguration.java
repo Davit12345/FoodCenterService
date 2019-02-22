@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web)   {
         web.ignoring()
-                .antMatchers("/home","/menu","/users/**","/user");
+                .antMatchers("/home","/menu","/users/**","/user","/upload");
 
     }
 

@@ -6,7 +6,10 @@ import com.example.foodcenter.exceptions.DuplicateDataException;
 import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.exceptions.NotFoundException;
 import com.example.foodcenter.exceptions.TeapotException;
+import com.example.foodcenter.model.Authority;
 import com.example.foodcenter.model.User;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -22,4 +25,5 @@ public interface UserService {
     void resendVerificationCode(String email) throws NotFoundException, InternalErrorException;
 
     User getByEmail(String email) ;
+    List<Authority> getRoles(String email) throws InternalErrorException;
 }

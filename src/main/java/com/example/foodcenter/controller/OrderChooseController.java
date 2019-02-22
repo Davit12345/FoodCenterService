@@ -4,6 +4,7 @@ package com.example.foodcenter.controller;
 import com.example.foodcenter.controller.forJsonModels.Item;
 import com.example.foodcenter.exceptions.DuplicateDataException;
 import com.example.foodcenter.exceptions.InternalErrorException;
+import com.example.foodcenter.exceptions.NotFoundException;
 import com.example.foodcenter.exceptions.TeapotException;
 import com.example.foodcenter.model.Menu;
 import com.example.foodcenter.model.OrderItem;
@@ -45,5 +46,12 @@ public class OrderChooseController {
         return ResponseEntity.ok().body(orderItemList);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity deleteChoosedItem(@PathVariable int id, Principal principal) throws InternalErrorException, NotFoundException {
+
+        orderItemService.deleteOneProduct(id, principal.getName());
+
+        return ResponseEntity.ok("Success deleted item in your list");
+    }
 
 }

@@ -53,5 +53,12 @@ public class MenuController {
         return ResponseEntity.ok().body(menuList);
 
     }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity deleteChoosedItem(@PathVariable int id) throws InternalErrorException {
+
+        menuService.deleteMenu(id);
+
+        return ResponseEntity.ok("Success deleted Menu Item");
+    }
 
 }
