@@ -7,7 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -41,5 +40,13 @@ public class Orders {
     @NotNull
     private double totalPrice;
 
+
+    private boolean send;
+
+    @OneToOne
+    private  Address address;
+
+    @OneToOne
+    private  RegTable table;
 
 }

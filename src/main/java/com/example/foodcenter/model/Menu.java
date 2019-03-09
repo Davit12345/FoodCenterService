@@ -31,6 +31,10 @@ public class Menu {
 
     private String info;
 
+    private String imageUrl;
+
+    private File image;
+
     @Enumerated(EnumType.ORDINAL)
     private MenuItems menuItem;
 

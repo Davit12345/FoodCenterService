@@ -42,7 +42,6 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
     public void addOrder(String email) throws InternalErrorException, BadRequestException {
         try {
-            // add in db ->Orders
 
             User user = userRepository.getByEmail(email);
 
@@ -75,9 +74,9 @@ public class OrderServiceImpl implements OrderService {
 
 
                 } else {
-                    Pay pay = payRepository.getByUser(user);
-                    pay.setOwed(pay.getOwed() + sum);
-                    payRepository.save(pay);
+                        Pay pay = payRepository.getByUser(user);
+                        pay.setOwed(pay.getOwed() + sum);
+                        payRepository.save(pay);
 
                 }
 

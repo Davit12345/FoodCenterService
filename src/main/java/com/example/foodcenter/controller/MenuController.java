@@ -54,7 +54,8 @@ public class MenuController {
 
     }
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity deleteChoosedItem(@PathVariable int id) throws InternalErrorException {
+//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity deleteMenu(@PathVariable int id) throws InternalErrorException {
 
         menuService.deleteMenu(id);
 

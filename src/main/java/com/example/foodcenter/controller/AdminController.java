@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(UrlConstants.Admin_CONTROLLER_URL)
-//@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class AdminController {
 
 
