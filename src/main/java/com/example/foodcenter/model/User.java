@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@Data
+
 @EqualsAndHashCode
 @ToString
 public class User {
