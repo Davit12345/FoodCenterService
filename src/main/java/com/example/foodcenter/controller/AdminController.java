@@ -34,7 +34,7 @@ public class AdminController {
     public ResponseEntity addManager(@RequestParam String email) throws NotFoundException, InterruptedException, InternalErrorException {
 
         adminService.addManager(email);
-        return ResponseEntity.ok("success add Manager");
+        return ResponseEntity.ok("success addUser Manager");
     }
 
 

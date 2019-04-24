@@ -20,10 +20,42 @@ public class Pay {
     @ManyToOne
     @JoinColumn(name = "customerId")
     @JsonIgnore
-    private  User user;
+    private User user;
 
 
-   private double owed;
+    private double amount;
 
+    private boolean send;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public boolean isSend() {
+        return send;
+    }
+
+    public void setSend(boolean send) {
+        this.send = send;
+    }
 }

@@ -29,7 +29,7 @@ public class MenuController {
 
         menuService.addMenu(menu);
 
-        return ResponseEntity.ok("success add one Menu column");
+        return ResponseEntity.ok("success addUser one Menu column");
 
     }
 

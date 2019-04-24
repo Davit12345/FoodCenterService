@@ -5,6 +5,7 @@ import com.example.foodcenter.exceptions.AccessDeniedException;
 import com.example.foodcenter.exceptions.InternalErrorException;
 import com.example.foodcenter.exceptions.NotFoundException;
 import com.example.foodcenter.model.Authority;
+import com.example.foodcenter.model.Transmitted;
 import com.example.foodcenter.model.User;
 import com.example.foodcenter.model.enums.Status;
 import com.example.foodcenter.repository.AuthorityRepository;
@@ -103,5 +104,20 @@ public class AdminServiceImpl implements AdminService {
         } catch (RuntimeException e) {
             throw new InternalErrorException(Constants.ERROR_MESSAGE);
         }
+    }
+
+    @Override
+    public List<User> getAllUser() throws InterruptedException, InternalErrorException {
+        return null;
+    }
+
+    @Override
+    public List<Transmitted> getAllTransmitted() throws InterruptedException, InternalErrorException {
+        return null;
+    }
+
+    @Override
+    public List<Transmitted> getAllPay() throws InterruptedException, InternalErrorException {
+        return null;
     }
 }

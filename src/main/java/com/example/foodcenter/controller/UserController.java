@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collections;
 
 @RestController
 @RequestMapping(UrlConstants.USERS_CONTROLLER_URL)
@@ -38,7 +37,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity addUser(@Valid @RequestBody User user) throws DuplicateDataException, InternalErrorException {
 
-        userService.add(user);
+        userService.addUser(user);
         return ResponseEntity.ok().body("success passed registry");
 
     }

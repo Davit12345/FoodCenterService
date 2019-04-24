@@ -13,11 +13,7 @@ import java.util.List;
 public interface OrderItemService  {
 
    void addOrderItem(String email, Item item) throws InternalErrorException, TeapotException;
-
     List<OrderItem> getAllItemOneCostumer(String email) throws InternalErrorException;
-
-
     void updateOneProduct(User user,String name,OrderItem orderItem);
-
     void deleteOneProduct(int id, String name) throws InternalErrorException, NotFoundException;
 }

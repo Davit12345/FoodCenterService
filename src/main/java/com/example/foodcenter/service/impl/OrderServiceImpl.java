@@ -10,10 +10,8 @@ import com.example.foodcenter.repository.OrderItemRepository;
 import com.example.foodcenter.repository.OrderRepository;
 import com.example.foodcenter.repository.PayRepository;
 import com.example.foodcenter.repository.UserRepository;
-import com.example.foodcenter.service.MenuService;
 import com.example.foodcenter.service.OrderService;
 import com.example.foodcenter.util.Constants;
-import org.hibernate.criterion.NotNullExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -68,15 +66,15 @@ public class OrderServiceImpl implements OrderService {
                     Pay pay = new Pay();
 
                     pay.setUser(user);
-                    pay.setOwed(sum);
+                    pay.setAmount(sum);
 
                     payRepository.save(pay);
 
 
                 } else {
-                        Pay pay = payRepository.getByUser(user);
-                        pay.setOwed(pay.getOwed() + sum);
-                        payRepository.save(pay);
+                    Pay pay = payRepository.getByUser(user);
+                    pay.setAmount(pay.getAmount() + sum);
+                    payRepository.save(pay);
 
                 }
 
@@ -91,5 +89,22 @@ public class OrderServiceImpl implements OrderService {
         } catch (RuntimeException e) {
             throw new InternalErrorException(Constants.ERROR_MESSAGE);
         }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Orders> getAllAnSendOrders() {
+
+        return orderRepository.getAllAnSendOrders();
+    }
+
+    @Override
+    public void addPay(User user, double amount) {
+
+    }
+
+    @Override
+    public void SendFood(int order_id) {
+
     }
 }

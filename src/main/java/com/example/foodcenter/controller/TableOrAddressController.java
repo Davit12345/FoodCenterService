@@ -24,7 +24,7 @@ public class TableOrAddressController {
 
 
             registrationService.addAddress(address,principal.getName());
-        return ResponseEntity.ok("success add one Address column");
+        return ResponseEntity.ok("success addUser one Address column");
 
     }
 
@@ -32,7 +32,7 @@ public class TableOrAddressController {
     public ResponseEntity addTable(@Valid @RequestBody RegTable table, Principal principal) throws InternalErrorException, DuplicateDataException {
         registrationService.addTable(table,principal.getName());
 
-        return ResponseEntity.ok("success add one Table column");
+        return ResponseEntity.ok("success addUser one Table column");
 
     }
 }

@@ -13,8 +13,6 @@ import java.util.List;
 public interface CartService {
 
     void addCart(CartInfo cartInfo, String email) throws InternalErrorException, DuplicateDataException;
-
     void deleteCart(String email, String cartCode) throws InternalErrorException, NotFoundException, AccessDeniedException;
-
     List<Cart> getCartByUser(String email) throws InternalErrorException;
 }

@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void add(User user) throws DuplicateDataException, InternalErrorException {
+    public void addUser(User user) throws DuplicateDataException, InternalErrorException {
 
         try {
             User duplicate = userRepository.getByEmail(user.getEmail());

@@ -30,7 +30,7 @@ public class CartController {
     public  ResponseEntity  addCart(Principal principal,@Valid @RequestBody CartInfo cartInfo) throws InternalErrorException, DuplicateDataException {
         cartService.addCart(cartInfo,principal.getName());
 
-        return  ResponseEntity.ok("success add cart");
+        return  ResponseEntity.ok("success addUser cart");
     }
 
 

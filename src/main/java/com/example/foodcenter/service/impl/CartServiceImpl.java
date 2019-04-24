@@ -35,7 +35,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public void addCart(CartInfo cartInfo, String email) throws InternalErrorException, DuplicateDataException {
         try {
-//static add cart
+//static addUser cart
 
             if (cartRepository.getCartByCartCode(cartInfo.getCartCode()) != null) {
                 throw new DuplicateDataException("There are user whit this card ");
@@ -51,6 +51,7 @@ public class CartServiceImpl implements CartService {
             Random r = new Random();
             int sum = r.nextInt(100) + 25;
             cart.setAmount(sum);
+
 
 
             cartRepository.save(cart);

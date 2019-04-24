@@ -14,7 +14,7 @@ import java.util.List;
 public interface UserService {
 
 
-    void add(User user) throws DuplicateDataException, InternalErrorException;
+    void addUser(User user) throws DuplicateDataException, InternalErrorException;
 
     void verify(EmailAndCode emailAndCode) throws InternalErrorException, TeapotException;
 
@@ -24,6 +24,7 @@ public interface UserService {
 
     void resendVerificationCode(String email) throws NotFoundException, InternalErrorException;
 
-    User getByEmail(String email) ;
     List<Authority> getRoles(String email) throws InternalErrorException;
+
+    User getByEmail(String email) ;
 }

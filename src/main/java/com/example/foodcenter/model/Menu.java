@@ -38,5 +38,59 @@ public class Menu {
     @Enumerated(EnumType.ORDINAL)
     private MenuItems menuItem;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public File getImage() {
+        return image;
+    }
+
+    public void setImage(File image) {
+        this.image = image;
+    }
+
+    public MenuItems getMenuItem() {
+        return menuItem;
+    }
+
+    public void setMenuItem(MenuItems menuItem) {
+        this.menuItem = menuItem;
+    }
 }
